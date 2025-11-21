@@ -45,7 +45,9 @@ export const MainPage = () => {
       if (!preset.evaluationFields.length) throw new Error('No output fields selected')
       setResult('Getting applicant records...')
       const applicantView = applicantTable.getViewById(preset.applicantViewId);
-      const applicantRecords = await applicantView.selectRecordsAsync()
+      const applicantRecords = await applicantView.selectRecordsAsync({
+        fields: preset.applicantFields.map((f) => f.fieldId),
+      });
       setResult(renderPreviewText(applicantRecords.records.length, preset.evaluationFields.length))
       const evaluationWritingPromises = await Promise.allSettled(evaluateApplicants(applicantRecords.records, preset, setProgress).map(async (evaluationPromise) => {
         const evaluation = await evaluationPromise;
