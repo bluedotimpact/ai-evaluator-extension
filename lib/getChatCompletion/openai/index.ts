@@ -16,7 +16,7 @@ export const getChatCompletion: GetChatCompletion = async (messages) => {
         body: JSON.stringify({
           model: openAiModel,
           messages: messages,
-          max_tokens: 500
+          max_tokens: 1000
         })
     });
     
